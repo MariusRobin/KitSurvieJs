@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Titre de la page</title>
+  <link rel="stylesheet" href="style.css">
+  <script>
+      function start()
+      {
+          /*var Etudiant = {
+              prenom: "Marius",
+              nom: "Robin",
+              numeroEtudiant: 67452,
+              dateNaissance: [5,9,1998], 
+          };*/
+          function dateDiff(d1, d2)
+          {
+	        var difAns = new Number((d2.getTime() - d1.getTime()) / 31536000000).toFixed(0);
+            if(d2.getMonth() > d1.getMonth())
+            {
+                difAns -= 1;
+            }
+            return difAns;
+          }
+          function Etudiant(nom, prenom, num, naissance){
+              this.prenom = prenom;
+              this.nom = nom;
+              this.num = num;
+              this.naissance = naissance;
+              this.presenter = function(){
+                console.log("L'étudiant " + this.prenom + " " + this.nom + " à pour numéro étudiant " + this.num + " est né le " + this.naissance[0] + "/" + this.naissance[1] + "/" + this.naissance[2])
+              };
+              this.age = function(){
+                  var dateNaissance = new Date(this.naissance[2], this.naissance[1], this.naissance[0]);
+                  var now = new Date();
+                  var dateMaintenant = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+                  console.log(dateDiff(dateNaissance, dateMaintenant) + " ans");
+              }
+          }
+
+          var etudiant1 = new Etudiant("Marius","Robin","9896978",[5,9,1998]);
+          etudiant1.presenter();
+          etudiant1.age();
+      }
+  </script>
+</head>
+<body onload="start()">
+ 
+</body>
+</html>

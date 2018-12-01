@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <title>Drag and drop</title>
+  <style>
+      .container{
+          width: 600px;
+          height: 500px;
+          border : solid 1px black;
+      }
+      .draggable{
+          width: 75px;
+          height: 75px;
+          background-color: red;
+      }
+  </style>
+  <script>
+        $( function() {
+          $( ".draggable" ).draggable({containment: "parent", drag: function() {
+                            var offset = $(this).offset();
+                            var xPos = offset.left;
+                            var yPos = offset.top;
+                            $(this).html('x: ' + xPos + '<br>y: ' + yPos);
+                            }});
+        })
+</script>
+</head>
+<body>
+    <div class="container">
+        <div class="draggable"></div>
+    </div>
+</body>
+</html>

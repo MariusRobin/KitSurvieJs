@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<head>
+ 
+    <meta charset="utf-8" />
+ 
+    <title>Kit de Survie JS</title>
+    <meta name="description" content="">
+ 
+    <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
+
+    <style>
+    	body{ font-family: 'Quicksand', sans-serif; }
+
+    	
+	</style>
+
+    <script src="jquery-3.2.1.min.js"></script>
+    <script type="text/javascript">
+    	$(document).ready(function(){
+			$('#button1').click(function(){
+				$('#button1').attr('value','chargement');
+				$('div#conteneur').load('http://www.labri.fr/perso/pbiasutt/Cours/KDJS/TD02/exo1.php #conteneur1', function(){
+					$('#button1').attr('value','charger1');
+				});
+			});
+			$('#button2').click(function(){
+				$('#button2').attr('value', 'chargement')
+				$('div#conteneur').load('http://www.labri.fr/perso/pbiasutt/Cours/KDJS/TD02/exo1.php #conteneur2', function(){
+					$('#button2').attr('value','charger2');
+				});
+			});
+
+			$('#vrai').hide();
+			$('#faux').hide();
+			$('#btn').click(function(){
+				$('#vrai').hide();
+				$('#faux').hide();
+				var nombre = $('#text').val();
+				$.ajax({
+				url: 'http://www.labri.fr/perso/pbiasutt/Cours/KDJS/TD02/functions.php',
+				dataType: 'script',
+				beforeSend: function(){console.log('Envoi de la requête ...');},
+				complete: function(data){
+					console.log('Réponse reçue');
+					console.log(data);
+					if(isPrime(nombre))
+					{
+						$('#vrai').show('slow');
+					}
+					else
+					{
+						$('#faux').show('slow');
+					}
+				},
+				method: 'get',
+				
+				});
+				
+			});
+			$.ajax({
+                    type: "GET",
+                    url: "http://www.labri.fr/perso/pbiasutt/Cours/KDJS/TD02/characters.php",
+                    dataType: "json",
+
+                    beforeSend: function(){console.log("envoie de la req...");},
+                    success : function(data){
+                        console.log("rep reçue");
+                        console.log(data);
+                        for(i=0 ; i<jQuery.makeArray(data).length ; i++){
+                            $("#listeRemplir").append("<li> ID : " + data[i].id + " nom : " + data[i].name + "</li>");
+                        }
+                    },
+                    method: "GET"
+            })
+			$('#btnVille').click(function(){
+				type = $('#typeSaisie').val();
+				recherche = $('#leTexte').val();
+				console.log(type);
+				$.ajax({
+                    type: "GET",
+                    url: "https://geo.api.gouv.fr/communes?"+type+"="+recherche,
+                    dataType: "json",
+
+                    beforeSend: function(){console.log("envoie de la req...");},
+                    success : function(data){
+                        console.log("rep reçue");
+                        console.log(data);
+                        for(i=0 ; i<jQuery.makeArray(data).length ; i++){
+                            $("#listeVille").append("<li> nom : " + data[i].nom + "</li>");
+                        }
+                    },
+                    method: "GET"
+            })
+			});
+    	});
+   	</script>
+</head>
+<body>
+
+		<form>
+				<select id="typeSaisie">
+					<option value="nom">Ville</option> 
+					<option value="codePostal" selected>Code postal</option>
+					<option value="codeDepartement">Code département</option>
+				</select>
+			<input type="text" id="leTexte">
+			<input type="button" id="btnVille" value="rechercher">
+		</form>
+		<ul id="listeVille">
+
+			</ul>
+	<input type="button" id="button1" value="charger1">
+	<input type="button" id="button2" value="charger2">
+	<div id="conteneur">
+	</div>
+	<form id="monForm">
+		<input type="text" id="text">
+		<input type="button" id="btn">
+	</form>
+	<div id="vrai">
+		<p>Le nombre est premier</p>
+	</div>
+	<div id="faux">
+		<p>Le nombre n'est pas premier</p>
+	</div>
+		<ul id="listeRemplir">
+
+		</ul>
+
+	
+	<!-- Code HTML -->
+</body>
+ 
+</html>

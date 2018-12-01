@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Titre de la page</title>
+  <link rel="stylesheet" href="style.css">
+  <script>
+      function start()
+      {
+        function dateDiff(d1, d2)
+          {
+	        var difAns = new Number((d2.getTime() - d1.getTime()) / 31536000000).toFixed(0);
+            if(d2.getMonth() > d1.getMonth())
+            {
+                difAns -= 1;
+            }
+            return difAns;
+          }
+          var Personne = {
+              prenom: "",
+              nom: "",
+              taille: 190,
+              dateNaissance: [1,1,1997],
+              init: function(nom, prenom, dateNaissance){
+                this.nom = nom;
+                this.prenom = prenom;
+                this.dateNaissance = dateNaissance;
+              },
+              decrire: function(){
+                  return (this.nom + " " + this.prenom + " né le " + this.dateNaissance[0] + "/" + this.dateNaissance[1] + "/" + this.dateNaissance[2]);
+              },
+              direAge: function(){
+                var dateNaissance = new Date(this.dateNaissance[2], this.dateNaissance[1], this.dateNaissance[0]);
+                  var now = new Date();
+                  var dateMaintenant = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+                  console.log(dateDiff(dateNaissance, dateMaintenant) + " ans");
+              }
+
+          };
+
+         var Professeur = Object.create(Personne);
+         Professeur.mail="";
+         Professeur.initProfesseur = function(nom,prenom, dateNaissance, mail){
+             this.init(nom,prenom,dateNaissance);
+             this.mail = mail;
+         };
+         Professeur.decrireProfesseur = function(){
+             console.log(this.decrire() + " Adresse email : " + this.mail);
+         };
+
+         var professeur1 = Object.create(Professeur);
+         professeur1.initProfesseur("Dupont","Jean",[24,3,1967],"jean.dupont@mail.com");
+         professeur1.decrireProfesseur();
+         professeur1.direAge();
+      }
+  </script>
+</head>
+<body onload="start()">
+ 
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js">
+</script>
+<body>
+
+<div ng-app="laCalculette" ng-controller="controller">
+    <p><label>Nombre 1 : </label><input type="number" ng-model="nb1"></p>
+    <p><label>Nombre 2 : </label><input type="number" ng-model="nb2"></p>
+    <p><select ng-model="operator">
+        <option>+</option>
+        <option>*</option>
+        <option>-</option>
+        <option>/</option>
+    </select></p>
+    <p>{{ nb1 }} {{operator}} {{nb2}} = {{ result() }}</p>
+</div>
+
+<script>
+    angular.module('laCalculette', [])
+        .controller('controller', function($scope) {
+            $scope.result = function() {
+                if ($scope.operator == '+') {
+                    return $scope.nb1 + $scope.nb2;
+                }
+                if ($scope.operator == '-') {
+                    return $scope.nb1 - $scope.nb2;
+                }
+                if ($scope.operator == '') {
+                    return $scope.nb1 * $scope.nb2;
+                }
+                if ($scope.operator == '/') {
+                    return $scope.nb1 / $scope.nb2;
+                }
+            };
+        });
+</script>
+</body>
+</html>
