@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <title>Drag and drop</title>
+  <style>
+      #sortable { list-style-type: none; margin: 0; padding: 0; margin-bottom: 10px; }
+  #sortable > li { margin: 5px; padding: 5px; width: 150px; border : solid 1px black;}
+  </style>
+  <script>
+        $( function() {
+            $( "#sortable" ).sortable({
+                revert: true
+            });
+            $("input:submit").click(function(){
+                $("#resultat").children().remove();
+                for(i=0; i<$("ul").children("li").length; i++)
+                {
+                    $("#resultat").append("<li>" + $("ul").children("li")[i].innerHTML + "</li>");
+                    console.log($("ul").children("li")[i].innerHTML);
+                }
+            });
+        })
+</script>
+</head>
+<body>
+        <ul id="sortable">
+            <li>Item 1</li>
+            <li>Item 2</li>
+            <li>Item 3</li>
+            <li>Item 4</li>
+            <li>Item 5</li>
+        </ul>
+        <input type="submit" value="Vas y">
+        <div id="resultat">
+        </div>
+</body>
+</html>
